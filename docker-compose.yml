@@ -3,14 +3,16 @@ services:
   mongo:
     image: mongo:latest
     container_name: mongo_container
+    restart: always
     volumes:
       - mongo_data:/data/db
     ports:
       - "27017:27017"
 
   server:
-    build: ./server
+    image: kumaranayakages/homehunt-server-image:v1
     container_name: server_container
+    restart: always
     ports:
       - "5000:5000"
     depends_on:
@@ -19,20 +21,21 @@ services:
       - ./server:/app
       - /app/node_modules
     environment:
-      - MONGO_URL=mongodb://mongo:27017/test-users
+      - MONGO=mongodb+srv://Sachinthana:Sachi2001@cluster0.ge4oi.mongodb.net/homehunt?retryWrites=true&w=majority&appName=Cluster0
 
   client:
-    build: ./client
+    image: kumaranayakages/homehunt-client-image:v1
     container_name: client_container
-    ports:
-      - "5173:5173"
+    restart: always
     depends_on:
       - server
     stdin_open: true
     tty: true
     volumes:
       - ./client:/app
-      - /client/node_modules
+      - /app/node_modules
+    ports:
+      - "5173:5173"
 
 volumes:
   mongo_data:

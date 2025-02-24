@@ -15,6 +15,7 @@ mongoose
   })
   .catch((err) => {
     console.error("MongoDB connection error:", err);
+    console.log("MongoDB Connection String:", process.env.MONGO);
   });
 
 // Listen to port 5000
