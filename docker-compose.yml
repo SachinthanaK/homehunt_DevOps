@@ -10,7 +10,7 @@ services:
       - "27017:27017"
 
   server:
-    image: kumaranayakages/homehunt-server-image:v1
+    image: kumaranayakages/homehunt-server-image:v8
     container_name: server_container
     restart: always
     ports:
@@ -22,9 +22,10 @@ services:
       - /app/node_modules
     environment:
       - MONGO=mongodb+srv://Sachinthana:Sachi2001@cluster0.ge4oi.mongodb.net/homehunt?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=mysecretkey123
 
   client:
-    image: kumaranayakages/homehunt-client-image:v1
+    image: kumaranayakages/homehunt-client-image:v7
     container_name: client_container
     restart: always
     depends_on:
